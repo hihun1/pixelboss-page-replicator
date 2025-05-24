@@ -90,7 +90,7 @@ const Index = () => {
       </nav>
 
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center px-6 pt-20">
+      <section id="home" className="relative min-h-screen flex items-center justify-center px-6 pt-20">
         <div className="text-center max-w-4xl mx-auto">
           {/* Pixel art avatar placeholder */}
           <div className="w-32 h-32 mx-auto mb-8 bg-gradient-to-br from-cyan-400 to-purple-500 rounded-lg shadow-2xl shadow-cyan-500/25 flex items-center justify-center">
@@ -129,9 +129,9 @@ const Index = () => {
       </section>
 
       {/* About Section */}
-      <section className="py-20 px-6">
+      <section id="about" className="py-20 px-6">
         <div className="container mx-auto max-w-6xl">
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-16 text-cyan-400">
+          <h2 className="text-4xl md:text-5xl font-bold text-center mb-16 text-cyan-400 pixel-font">
             About Me
           </h2>
           
@@ -144,11 +144,11 @@ const Index = () => {
                 illustration, always with a focus on retro aesthetics and modern polish.
               </p>
               <div className="grid grid-cols-2 gap-4">
-                <div className="bg-black/30 p-4 rounded-lg border border-cyan-500/30">
+                <div className="bg-black/30 p-4 rounded-lg border border-cyan-500/30 animate-glow">
                   <h4 className="text-cyan-400 font-semibold mb-2">Games Shipped</h4>
                   <p className="text-3xl font-bold">12+</p>
                 </div>
-                <div className="bg-black/30 p-4 rounded-lg border border-purple-500/30">
+                <div className="bg-black/30 p-4 rounded-lg border border-purple-500/30 animate-glow">
                   <h4 className="text-purple-400 font-semibold mb-2">Art Pieces</h4>
                   <p className="text-3xl font-bold">500+</p>
                 </div>
@@ -156,7 +156,7 @@ const Index = () => {
             </div>
             
             <div className="relative">
-              <div className="w-full h-80 bg-gradient-to-br from-cyan-500/20 to-purple-500/20 rounded-xl border border-cyan-500/30 flex items-center justify-center">
+              <div className="w-full h-80 bg-gradient-to-br from-cyan-500/20 to-purple-500/20 rounded-xl border border-cyan-500/30 flex items-center justify-center animate-float">
                 <div className="text-center">
                   <div className="w-24 h-24 bg-gradient-to-br from-cyan-400 to-purple-500 rounded-lg mx-auto mb-4 flex items-center justify-center">
                     <Star className="w-12 h-12 text-white" />
@@ -170,9 +170,9 @@ const Index = () => {
       </section>
 
       {/* Portfolio Section */}
-      <section className="py-20 px-6 bg-black/20">
+      <section id="portfolio" className="py-20 px-6 bg-black/20">
         <div className="container mx-auto max-w-6xl">
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-16 text-cyan-400">
+          <h2 className="text-4xl md:text-5xl font-bold text-center mb-16 text-cyan-400 pixel-font">
             Featured Work
           </h2>
           
@@ -219,9 +219,9 @@ const Index = () => {
       </section>
 
       {/* Contact Section */}
-      <section className="py-20 px-6">
+      <section id="contact" className="py-20 px-6">
         <div className="container mx-auto max-w-4xl text-center">
-          <h2 className="text-4xl md:text-5xl font-bold mb-8 text-cyan-400">
+          <h2 className="text-4xl md:text-5xl font-bold mb-8 text-cyan-400 pixel-font">
             Let's Create Together
           </h2>
           
