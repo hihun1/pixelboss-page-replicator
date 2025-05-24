@@ -2,6 +2,7 @@
 import { Github, ExternalLink } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
+import { useEffect, useRef, useState } from 'react';
 
 interface Project {
   id: number;
@@ -14,6 +15,30 @@ interface Project {
 }
 
 const Portfolio = () => {
+  const sectionRef = useRef<HTMLElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => {
+      if (sectionRef.current) {
+        observer.unobserve(sectionRef.current);
+      }
+    };
+  }, []);
+
   const projects = [
     {
       id: 1,
@@ -45,15 +70,27 @@ const Portfolio = () => {
   ];
 
   return (
-    <section id="portfolio" className="py-20 px-6 bg-black/20">
+    <section 
+      id="portfolio" 
+      ref={sectionRef}
+      className="py-20 px-6 bg-black/20"
+    >
       <div className="container mx-auto max-w-6xl">
-        <h2 className="text-4xl md:text-5xl font-bold text-center mb-16 text-cyan-400 pixel-font">
+        <h2 className={`text-4xl md:text-5xl font-bold text-center mb-16 text-cyan-400 pixel-font transition-all duration-1000 ${
+          isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+        }`}>
           Featured Work
         </h2>
         
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {projects.map((project) => (
-            <Card key={project.id} className="bg-black/40 border-cyan-500/30 hover:border-cyan-400/60 transition-all duration-300 group hover:scale-105 hover:shadow-2xl hover:shadow-cyan-500/25">
+          {projects.map((project, index) => (
+            <Card 
+              key={project.id} 
+              className={`bg-black/40 border-cyan-500/30 hover:border-cyan-400/60 transition-all duration-500 group hover:scale-105 hover:shadow-2xl hover:shadow-cyan-500/25 ${
+                isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+              }`}
+              style={{ transitionDelay: `${index * 200}ms` }}
+            >
               <CardContent className="p-0">
                 <div className="relative overflow-hidden rounded-t-lg">
                   <img
