@@ -22,7 +22,7 @@ const products: Product[] = [
     id: 1,
     name: "Free aperitif with reservations for two in April",
     description: "Enjoy a complimentary aperitif at Victor Churchill",
-    image: "https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?w=800&h=600&fit=crop",
+    image: "https://wp.hmm.pixelboss.io/wp-content/uploads/2025/04/victor.png",
     category: "FOOD & DRINK",
     business: "VICTOR CHURCHILL"
   },
@@ -30,7 +30,7 @@ const products: Product[] = [
     id: 2,
     name: "Attend our AW25 Collection Preview and Win a Trip to Paris!",
     description: "Fashion showcase and exclusive opportunity",
-    image: "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=800&h=533&fit=crop",
+    image: "https://wp.hmm.pixelboss.io/wp-content/uploads/2025/04/scanlan.png",
     category: "FASHION",
     business: "SCANLAN THEODORE"
   },
@@ -38,7 +38,7 @@ const products: Product[] = [
     id: 3,
     name: "12 IPL Limelight Full Face Treatments for the price of 9!",
     description: "Limited time beauty treatment offer",
-    image: "https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?w=800&h=533&fit=crop",
+    image: "https://wp.hmm.pixelboss.io/wp-content/uploads/2025/04/skin_angel.png",
     category: "BEAUTY",
     business: "SKIN ANGEL"
   },
@@ -46,7 +46,7 @@ const products: Product[] = [
     id: 4,
     name: "Win a set menu and accompanying drinks experience for you and three friends",
     description: "Exclusive dining experience opportunity",
-    image: "https://images.unsplash.com/photo-1592861956120-e524fc739696?w=800&h=533&fit=crop",
+    image: "https://wp.hmm.pixelboss.io/wp-content/uploads/2025/04/rinacuccina.jpg",
     category: "FOOD & DRINK",
     business: "RINA'S CUCINA"
   },
@@ -54,7 +54,7 @@ const products: Product[] = [
     id: 5,
     name: "Win a $200 Et Al voucher",
     description: "Fashion voucher giveaway",
-    image: "https://images.unsplash.com/photo-1487222477894-8943e31ef7b2?w=800&h=533&fit=crop",
+    image: "https://wp.hmm.pixelboss.io/wp-content/uploads/2025/04/etal.png",
     category: "FASHION",
     business: "ET AL"
   },
@@ -62,7 +62,7 @@ const products: Product[] = [
     id: 6,
     name: "2025 Makeover - Win a consultation for your house",
     description: "Home styling consultation prize",
-    image: "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=800&h=533&fit=crop",
+    image: "https://wp.hmm.pixelboss.io/wp-content/uploads/2025/04/jamessaid.png",
     category: "SERVICES",
     business: "JAMES SAID"
   }
@@ -73,19 +73,19 @@ const newsItems: NewsItem[] = [
     id: 1,
     title: "Pixel Boss launch their new software SWIFT!",
     business: "PIXEL BOSS",
-    image: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=800&h=600&fit=crop"
+    image: "https://3143.pixelboss.io/uploads/images/pixelboss.png"
   },
   {
     id: 2,
     title: "AW25 designs now in store!",
     business: "LUCI DI BELLA",
-    image: "https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=800&h=600&fit=crop"
+    image: "https://3143.pixelboss.io/uploads/images/luci.png"
   },
   {
     id: 3,
     title: "Armadale Cellars top wine picks for 2025!",
     business: "ARMADALE CELLARS",
-    image: "https://images.unsplash.com/photo-1528823872057-9c018a7a7553?w=800&h=600&fit=crop"
+    image: "https://3143.pixelboss.io/uploads/images/cellars.png"
   }
 ];
 
@@ -145,8 +145,8 @@ const Products = () => {
                 <div className="relative">
                   <div className="absolute top-0 left-0 z-10 w-full">
                     <div className="bg-[#0A0A0A] text-white px-3 py-1.5 w-full relative">
-                      <div className="absolute left-0 top-0 w-1.5 h-full bg-[#FF6B00]"></div>
-                      <span className="text-[11px] font-medium tracking-wide pl-2">
+                      <div className="absolute left-0 top-0 w-4 h-full bg-[#FF6B00]"></div>
+                      <span className="text-[11px] font-medium tracking-wide pl-6">
                         {product.business}
                       </span>
                     </div>
@@ -168,7 +168,7 @@ const Products = () => {
                 
                 <div className="mt-3">
                   <div className="min-h-[40px]">
-                    <h3 className="text-[13px] font-medium leading-tight line-clamp-2">
+                    <h3 className="text-base font-medium leading-tight self-start line-clamp-2 h-[40px]">
                       {product.name}
                     </h3>
                   </div>
@@ -211,8 +211,8 @@ const Products = () => {
                 <div className="relative">
                   <div className="absolute top-0 left-0 z-10 w-full">
                     <div className="bg-[#0A0A0A] text-white px-3 py-1.5 w-full relative">
-                      <div className="absolute left-0 top-0 w-1.5 h-full bg-[#22C55E]"></div>
-                      <span className="text-[11px] font-medium tracking-wide pl-2">
+                      <div className="absolute left-0 top-0 w-4 h-full bg-[#22C55E]"></div>
+                      <span className="text-[11px] font-medium tracking-wide pl-6">
                         {item.business}
                       </span>
                     </div>
@@ -228,7 +228,7 @@ const Products = () => {
                 
                 <div className="mt-3">
                   <div className="min-h-[40px]">
-                    <h3 className="text-[13px] font-medium leading-tight line-clamp-2">
+                    <h3 className="text-base font-medium leading-tight self-start line-clamp-2 h-[40px]">
                       {item.title}
                     </h3>
                   </div>
