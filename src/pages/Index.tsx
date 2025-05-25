@@ -1,9 +1,7 @@
-
 import { useState, useEffect } from 'react';
 import Navigation from '@/components/portfolio/Navigation';
 import BackgroundParticles from '@/components/portfolio/BackgroundParticles';
 import Hero from '@/components/portfolio/Hero';
-import About from '@/components/portfolio/About';
 import Portfolio from '@/components/portfolio/Portfolio';
 import Contact from '@/components/portfolio/Contact';
 import Footer from '@/components/portfolio/Footer';
@@ -14,7 +12,7 @@ const Index = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ['home', 'about', 'portfolio', 'contact'];
+      const sections = ['home', 'portfolio', 'contact'];
       const sectionElements = sections.map(id => 
         document.getElementById(id)
       );
@@ -56,9 +54,6 @@ const Index = () => {
 
       {/* Hero Section */}
       <Hero mousePosition={mousePosition} />
-
-      {/* About Section */}
-      <About />
 
       {/* Portfolio Section */}
       <Portfolio />
