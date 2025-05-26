@@ -100,30 +100,37 @@ const Products = () => {
   return (
     <>
       <section className="py-16 bg-white">
-        <div className="container mx-auto px-4 max-w-[1200px]">
+        <div className="container mx-auto max-w-[1300px]">
           <div className="mb-16">
-            <div className="flex items-center justify-between mb-12 border-b border-gray-300 pb-4">
-              <h2 className="text-xl font-bold tracking-wide text-black">
-                EXCLUSIVE ARMADALE
+            <div className="flex justify-between items-center border-b border-gray-300 pb-2 mb-8">
+              <h2 className="text-2xl font-bold uppercase">
+                Exclusive Armadale
               </h2>
-              <button 
-                onClick={() => setCurrentCategory('VIEW ALL')}
-                className="text-sm tracking-wide text-black hover:text-gray-600 transition-colors"
-              >
+              <a href="/exclusive-armadale" className="text-sm uppercase">
                 VIEW ALL
-              </button>
+              </a>
             </div>
 
             {/* Category filters */}
             <div className="flex flex-wrap justify-center gap-x-4 gap-y-3">
-              {categories.map((category) => (
+              <button
+                onClick={() => setCurrentCategory('VIEW ALL')}
+                className={`border px-6 py-2 text-sm uppercase transition-colors duration-300 whitespace-nowrap ${
+                  currentCategory === 'VIEW ALL'
+                    ? 'bg-[#080d1e] text-white border-[#080d1e]'
+                    : 'bg-[#F5F5F5] text-black hover:bg-[#080d1e] hover:text-white border-[#E5E5E5] hover:border-[#080d1e]'
+                }`}
+              >
+                VIEW ALL
+              </button>
+              {categories.filter(cat => cat !== 'VIEW ALL').map((category) => (
                 <button
                   key={category}
                   onClick={() => setCurrentCategory(category)}
-                  className={`text-[11px] tracking-wider py-1.5 transition-all duration-300 w-[120px] border-2 ${
+                  className={`border px-6 py-2 text-sm uppercase transition-colors duration-300 whitespace-nowrap ${
                     currentCategory === category
-                      ? 'bg-black text-white border-black'
-                      : 'bg-[#F5F5F5] text-black hover:bg-black hover:text-white border-[#E5E5E5] hover:border-black'
+                      ? 'bg-[#080d1e] text-white border-[#080d1e]'
+                      : 'bg-[#F5F5F5] text-black hover:bg-[#080d1e] hover:text-white border-[#E5E5E5] hover:border-[#080d1e]'
                   }`}
                 >
                   {category}
@@ -132,53 +139,35 @@ const Products = () => {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-[45px]">
             {filteredProducts.map((product) => (
-              <motion.div
-                key={product.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
-                viewport={{ once: true }}
-                className="group cursor-pointer"
-              >
-                <div className="relative">
-                  <div className="absolute top-0 left-0 z-10 w-full">
-                    <div className="bg-[#0A0A0A] text-white px-3 py-1.5 w-full relative">
-                      <div className="absolute left-0 top-0 w-4 h-full bg-[#FF6B00]"></div>
-                      <span className="text-[11px] font-medium tracking-wide pl-6">
-                        {product.business}
-                      </span>
-                    </div>
+              <div key={product.id} className="flex flex-col h-full group">
+                <div className="flex w-full">
+                  <div className="w-[15px] bg-orange-500"></div>
+                  <div className="bg-[#080d1e] text-white px-3 py-2 flex-1">
+                    <span className="text-sm uppercase font-medium">{product.business}</span>
                   </div>
-                  <div className="relative aspect-[4/3] overflow-hidden bg-gray-100">
+                </div>
+                <div className="relative overflow-hidden">
+                  <a href={`/campaigns/${product.id}`}>
                     <img
                       src={product.image}
                       alt={product.name}
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                      style={{ 
-                        objectPosition: 
-                          product.id === 1 ? 'center 40%' : 
-                          product.id === 2 ? 'center 30%' :
-                          'center'
-                      }}
+                      className="w-full h-[222px] object-cover transition-transform duration-500 group-hover:scale-105 cursor-pointer"
                     />
-                  </div>
+                  </a>
                 </div>
-                
-                <div className="mt-3">
-                  <div className="min-h-[40px]">
-                    <h3 className="text-base font-medium leading-tight self-start line-clamp-2 h-[40px]">
-                      {product.name}
-                    </h3>
-                  </div>
-                  <div className="mt-3">
-                    <button className="inline-flex items-center justify-center border border-black w-[100px] py-1.5 text-[11px] tracking-wide hover:bg-black hover:text-white transition-colors duration-300 rounded-full">
+                <div className="pt-4 pb-4 flex flex-col items-start h-[120px] justify-between">
+                  <h3 className="text-base font-medium leading-tight mb-2 line-clamp-2 h-[40px]">
+                    {product.name}
+                  </h3>
+                  <a href={`/campaigns/${product.id}`}>
+                    <button className="border border-gray-300 px-8 py-2 text-xs uppercase hover:bg-[#080d1e] hover:text-white hover:border-[#080d1e] rounded-full transition-colors duration-300 cursor-pointer">
                       ENTER
                     </button>
-                  </div>
+                  </a>
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
@@ -186,59 +175,45 @@ const Products = () => {
 
       {/* Neighbourhood News Section */}
       <section className="pt-8 pb-16 bg-white">
-        <div className="container mx-auto px-4 max-w-[1200px]">
-          <div className="flex items-center justify-between mb-12 border-b border-gray-300 pb-4">
-            <h2 className="text-xl font-bold tracking-wide text-black">
-              NEIGHBOURHOOD NEWS
+        <div className="container mx-auto max-w-[1300px]">
+          <div className="flex justify-between items-center border-b border-gray-300 pb-2 mb-8">
+            <h2 className="text-2xl font-bold uppercase">
+              Neighbourhood News
             </h2>
-            <button 
-              className="text-sm tracking-wide text-black hover:text-gray-600 transition-colors"
-            >
+            <a href="/stories" className="text-sm uppercase">
               VIEW ALL
-            </button>
+            </a>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-12">
             {newsItems.map((item) => (
-              <motion.div
-                key={item.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
-                viewport={{ once: true }}
-                className="group cursor-pointer"
-              >
-                <div className="relative">
-                  <div className="absolute top-0 left-0 z-10 w-full">
-                    <div className="bg-[#0A0A0A] text-white px-3 py-1.5 w-full relative">
-                      <div className="absolute left-0 top-0 w-4 h-full bg-[#22C55E]"></div>
-                      <span className="text-[11px] font-medium tracking-wide pl-6">
-                        {item.business}
-                      </span>
-                    </div>
+              <div key={item.id} className="flex flex-col h-full group">
+                <div className="flex w-full">
+                  <div className="w-[15px] bg-[rgb(185,255,108)]"></div>
+                  <div className="bg-[#080d1e] text-white px-3 py-2 flex-1">
+                    <span className="text-sm uppercase font-bold">{item.business}</span>
                   </div>
-                  <div className="relative aspect-[4/3] overflow-hidden bg-gray-100">
+                </div>
+                <div className="relative overflow-hidden">
+                  <a href={`/stories/story-${item.id}`}>
                     <img
                       src={item.image}
                       alt={item.title}
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      className="w-full h-[222px] object-cover transition-transform duration-500 group-hover:scale-105 cursor-pointer"
                     />
-                  </div>
+                  </a>
                 </div>
-                
-                <div className="mt-3">
-                  <div className="min-h-[40px]">
-                    <h3 className="text-base font-medium leading-tight self-start line-clamp-2 h-[40px]">
-                      {item.title}
-                    </h3>
-                  </div>
-                  <div className="mt-3">
-                    <button className="inline-flex items-center justify-center border border-black w-[100px] py-1.5 text-[11px] tracking-wide hover:bg-black hover:text-white transition-colors duration-300 rounded-full">
+                <div className="py-4 h-[120px] flex flex-col justify-between">
+                  <h3 className="text-base font-medium leading-tight self-start line-clamp-2 h-[40px]">
+                    {item.title}
+                  </h3>
+                  <a href={`/stories/story-${item.id}`}>
+                    <button className="border border-gray-300 px-8 py-2 text-xs uppercase hover:bg-[#080d1e] hover:text-white hover:border-[#080d1e] rounded-full transition-colors duration-300 cursor-pointer">
                       READ MORE
                     </button>
-                  </div>
+                  </a>
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>

@@ -35,6 +35,11 @@ const Navigation = ({ activeSection, setActiveSection }: NavigationProps) => {
     setIsMobileMenuOpen(false);
     setIsDropdownOpen(false);
     
+    if (section === 'neighbourhoodnews') {
+      window.location.href = '/news';
+      return;
+    }
+    
     const element = document.getElementById(section);
     if (element) {
       window.scrollTo({
@@ -58,13 +63,18 @@ const Navigation = ({ activeSection, setActiveSection }: NavigationProps) => {
   const dropdownItems = ['Bridal', 'Fashion', 'Food & Drink', 'Beauty', 'Services'];
 
   return (
-    <nav className="bg-white text-black">
+    <nav className="bg-white text-black border-b border-gray-200">
       <div className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
           <Link 
             to="/"
-            onClick={handleLogoClick}
+            onClick={() => {
+              setActiveSection('home');
+              setIsMobileMenuOpen(false);
+              setIsDropdownOpen(false);
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }}
             className="text-2xl font-bold hover:text-gray-600 transition-colors"
           >
             3143
@@ -109,20 +119,29 @@ const Navigation = ({ activeSection, setActiveSection }: NavigationProps) => {
                   </div>
                 );
               }
-              return (
-                <button
+              return item === 'Members' ? (
+                <Link
                   key={item}
-                  onClick={() => handleNavClick(item.toLowerCase().replace(' ', ''))}
-                  className={`text-sm font-medium transition-colors ${
-                    item === 'Members' 
-                      ? 'bg-black text-white px-4 py-1.5 hover:bg-gray-900' 
-                      : `hover:text-gray-600 ${
-                          activeSection === item.toLowerCase().replace(' ', '') ? 'text-gray-600' : 'text-black'
-                        }`
+                  to="/members"
+                  className="text-sm font-medium bg-black text-white px-4 py-1.5 hover:bg-gray-900 transition-colors"
+                >
+                  {item}
+                </Link>
+              ) : (
+                <Link
+                  key={item}
+                  to={item === 'Neighbourhood News' ? '/neighbourhood-news' : item === 'Inner Circle' ? '/inner-circle' : '#'}
+                  onClick={() => {
+                    if (item !== 'Neighbourhood News' && item !== 'Inner Circle') {
+                      handleNavClick(item.toLowerCase().replace(' ', ''));
+                    }
+                  }}
+                  className={`text-sm font-medium transition-colors hover:text-gray-600 ${
+                    activeSection === item.toLowerCase().replace(' ', '') ? 'text-gray-600' : 'text-black'
                   }`}
                 >
                   {item}
-                </button>
+                </Link>
               );
             })}
           </div>
@@ -161,20 +180,29 @@ const Navigation = ({ activeSection, setActiveSection }: NavigationProps) => {
                     </div>
                   );
                 }
-                return (
-                  <button
+                return item === 'Members' ? (
+                  <Link
                     key={item}
-                    onClick={() => handleNavClick(item.toLowerCase().replace(' ', ''))}
-                    className={`text-sm font-medium transition-colors ${
-                      item === 'Members' 
-                        ? 'bg-black text-white px-4 py-1.5 hover:bg-gray-900' 
-                        : `hover:text-gray-600 ${
-                            activeSection === item.toLowerCase().replace(' ', '') ? 'text-gray-600' : 'text-black'
-                          }`
+                    to="/members"
+                    className="text-sm font-medium bg-black text-white px-4 py-1.5 hover:bg-gray-900 transition-colors inline-block"
+                  >
+                    {item}
+                  </Link>
+                ) : (
+                  <Link
+                    key={item}
+                    to={item === 'Neighbourhood News' ? '/neighbourhood-news' : item === 'Inner Circle' ? '/inner-circle' : '#'}
+                    onClick={() => {
+                      if (item !== 'Neighbourhood News' && item !== 'Inner Circle') {
+                        handleNavClick(item.toLowerCase().replace(' ', ''));
+                      }
+                    }}
+                    className={`text-sm font-medium transition-colors hover:text-gray-600 ${
+                      activeSection === item.toLowerCase().replace(' ', '') ? 'text-gray-600' : 'text-black'
                     }`}
                   >
                     {item}
-                  </button>
+                  </Link>
                 );
               })}
             </div>

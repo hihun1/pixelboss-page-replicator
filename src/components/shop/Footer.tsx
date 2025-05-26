@@ -9,11 +9,6 @@ const Footer = () => {
     { name: 'PRIVACY POLICY', href: '/privacy-policy' },
     { name: 'TERMS & CONDITIONS', href: '/terms-conditions' },
   ];
-
-  const handleLogoClick = (e: React.MouseEvent) => {
-    e.preventDefault();
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
   
   return (
     <footer className="bg-[#0A0A0A] text-white py-16">
@@ -37,13 +32,9 @@ const Footer = () => {
 
           {/* Logo and Powered By */}
           <div className="flex flex-col items-center gap-y-3">
-            <Link 
-              to="/" 
-              onClick={handleLogoClick}
-              className="text-4xl font-bold tracking-wider cursor-pointer hover:text-gray-300 transition-colors"
-            >
+            <span className="text-4xl font-bold tracking-wider">
               3143
-            </Link>
+            </span>
             <div className="text-[11px] tracking-wide text-gray-400">
               Powered by <span className="text-white">PIXEL BOSS</span>
             </div>
