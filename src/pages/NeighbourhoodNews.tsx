@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Navigation from '../components/shop/Navigation';
 import Footer from '../components/shop/Footer';
 
@@ -32,6 +33,19 @@ const newsItems: NewsItem[] = [
 
 const NeighbourhoodNews = () => {
   const [activeSection, setActiveSection] = useState('neighbourhoodnews');
+  const navigate = useNavigate();
+
+  const handleCardClick = (id: number) => {
+    if (id === 1) {
+      navigate('/campaigns/new-1');
+    } else if (id === 2) {
+      navigate('/campaigns/new-2');
+    } else if (id === 3) {
+      navigate('/campaigns/new-3');
+    } else {
+      navigate(`/stories/story-${id}`);
+    }
+  };
 
   return (
     <>
@@ -55,7 +69,10 @@ const NeighbourhoodNews = () => {
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-[45px]">
                 {newsItems.map((item) => (
-                  <div key={item.id} className="flex flex-col h-full group mb-10">
+                  <div 
+                    key={item.id} 
+                    className="flex flex-col h-full group mb-10 cursor-pointer hover:shadow-lg transition-shadow duration-300"
+                    onClick={() => handleCardClick(item.id)}>
                     <div className="flex w-full">
                       <div className="w-[15px] bg-[rgb(185,255,108)]"></div>
                       <div className="bg-[#080d1e] text-white px-3 py-2 flex-1">
@@ -63,16 +80,14 @@ const NeighbourhoodNews = () => {
                       </div>
                     </div>
                     <div className="relative overflow-hidden">
-                      <a href={`/stories/story-${item.id}`}>
-                        <img
-                          src={item.image}
-                          alt={item.title}
-                          className="w-full h-[222px] object-cover transition-transform duration-500 group-hover:scale-105 cursor-pointer"
-                        />
-                      </a>
+                      <img
+                        src={item.image}
+                        alt={item.title}
+                        className="w-full h-[222px] object-cover transition-transform duration-500 group-hover:scale-105"
+                      />
                     </div>
                     <div className="py-4 h-[80px] flex flex-col justify-start">
-                      <h3 className="text-base font-medium leading-tight line-clamp-2">
+                      <h3 className="text-base font-medium leading-tight line-clamp-2 group-hover:underline">
                         {item.title}
                       </h3>
                     </div>

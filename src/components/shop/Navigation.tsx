@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { Menu, ChevronDown } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 interface NavigationProps {
   activeSection: string;
@@ -11,6 +11,7 @@ const Navigation = ({ activeSection, setActiveSection }: NavigationProps) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const navigate = useNavigate();
   
   const handleLogoClick = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -30,15 +31,13 @@ const Navigation = ({ activeSection, setActiveSection }: NavigationProps) => {
     };
   }, []);
 
-  const handleNavClick = (section: string) => {
+  const handleNavClick = (section: string, e?: React.MouseEvent) => {
+    if (e) {
+      e.preventDefault();
+    }
     setActiveSection(section);
     setIsMobileMenuOpen(false);
     setIsDropdownOpen(false);
-    
-    if (section === 'neighbourhoodnews') {
-      window.location.href = '/news';
-      return;
-    }
     
     const element = document.getElementById(section);
     if (element) {
@@ -50,13 +49,26 @@ const Navigation = ({ activeSection, setActiveSection }: NavigationProps) => {
   };
 
   const handleDropdownClick = (e: React.MouseEvent) => {
+    e.preventDefault();
     e.stopPropagation();
     setIsDropdownOpen(!isDropdownOpen);
   };
 
-  const handleDropdownItemClick = (item: string) => {
-    handleNavClick(item.toLowerCase().replace(' & ', '').replace(' ', ''));
+  const handleDropdownItemClick = (item: string, e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    const category = item.toLowerCase().replace(/[& ]/g, '');
     setIsDropdownOpen(false);
+    setActiveSection('exclusivearmadale');
+    navigate('/exclusive-armadale');
+    setTimeout(() => {
+      const element = document.getElementById(category);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+      // Update URL with hash after navigation
+      window.history.pushState(null, '', `/exclusive-armadale#${category}`);
+    }, 100);
   };
 
   const navItems = ['3143', 'Inner Circle', 'Exclusive Armadale', 'Neighbourhood News', 'Members'];
@@ -69,11 +81,13 @@ const Navigation = ({ activeSection, setActiveSection }: NavigationProps) => {
           {/* Logo */}
           <Link 
             to="/"
-            onClick={() => {
+            onClick={(e) => {
+              e.preventDefault();
               setActiveSection('home');
               setIsMobileMenuOpen(false);
               setIsDropdownOpen(false);
               window.scrollTo({ top: 0, behavior: 'smooth' });
+              navigate('/');
             }}
             className="text-2xl font-bold hover:text-gray-600 transition-colors"
           >
@@ -96,7 +110,7 @@ const Navigation = ({ activeSection, setActiveSection }: NavigationProps) => {
                   <div key={item} className="relative" ref={dropdownRef}>
                     <button
                       onClick={handleDropdownClick}
-                      className={`text-sm font-medium transition-colors hover:text-gray-600 flex items-center gap-1 ${
+                      className={`text-sm font-medium transition-colors hover:text-gray-600 flex items-center gap-1 active:scale-95 ${
                         activeSection === item.toLowerCase().replace(' ', '') ? 'text-gray-600' : 'text-black'
                       }`}
                     >
@@ -108,8 +122,8 @@ const Navigation = ({ activeSection, setActiveSection }: NavigationProps) => {
                         {dropdownItems.map((dropdownItem) => (
                           <button
                             key={dropdownItem}
-                            onClick={() => handleDropdownItemClick(dropdownItem)}
-                            className="block w-full text-left px-4 py-2 text-sm hover:bg-gray-100"
+                            onClick={(e) => handleDropdownItemClick(dropdownItem, e)}
+                            className="block w-full text-left px-4 py-2 text-sm hover:bg-gray-100 active:bg-gray-200 transition-colors duration-150"
                           >
                             {dropdownItem}
                           </button>
@@ -123,6 +137,11 @@ const Navigation = ({ activeSection, setActiveSection }: NavigationProps) => {
                 <Link
                   key={item}
                   to="/members"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setIsDropdownOpen(false);
+                    navigate('/members');
+                  }}
                   className="text-sm font-medium bg-black text-white px-4 py-1.5 hover:bg-gray-900 transition-colors"
                 >
                   {item}
@@ -131,9 +150,13 @@ const Navigation = ({ activeSection, setActiveSection }: NavigationProps) => {
                 <Link
                   key={item}
                   to={item === 'Neighbourhood News' ? '/neighbourhood-news' : item === 'Inner Circle' ? '/inner-circle' : '#'}
-                  onClick={() => {
-                    if (item !== 'Neighbourhood News' && item !== 'Inner Circle') {
-                      handleNavClick(item.toLowerCase().replace(' ', ''));
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleNavClick(item.toLowerCase().replace(' ', ''));
+                    if (item === 'Neighbourhood News') {
+                      navigate('/neighbourhood-news');
+                    } else if (item === 'Inner Circle') {
+                      navigate('/inner-circle');
                     }
                   }}
                   className={`text-sm font-medium transition-colors hover:text-gray-600 ${
@@ -157,7 +180,7 @@ const Navigation = ({ activeSection, setActiveSection }: NavigationProps) => {
                     <div key={item} className="space-y-2">
                       <button
                         onClick={handleDropdownClick}
-                        className={`text-sm font-medium transition-colors hover:text-gray-600 flex items-center gap-1 ${
+                        className={`text-sm font-medium transition-colors hover:text-gray-600 flex items-center gap-1 active:scale-95 ${
                           activeSection === item.toLowerCase().replace(' ', '') ? 'text-gray-600' : 'text-black'
                         }`}
                       >
@@ -169,7 +192,7 @@ const Navigation = ({ activeSection, setActiveSection }: NavigationProps) => {
                           {dropdownItems.map((dropdownItem) => (
                             <button
                               key={dropdownItem}
-                              onClick={() => handleDropdownItemClick(dropdownItem)}
+                              onClick={(e) => handleDropdownItemClick(dropdownItem, e)}
                               className="block text-sm text-gray-600 hover:text-black"
                             >
                               {dropdownItem}
@@ -184,6 +207,11 @@ const Navigation = ({ activeSection, setActiveSection }: NavigationProps) => {
                   <Link
                     key={item}
                     to="/members"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setIsDropdownOpen(false);
+                      navigate('/members');
+                    }}
                     className="text-sm font-medium bg-black text-white px-4 py-1.5 hover:bg-gray-900 transition-colors inline-block"
                   >
                     {item}
@@ -192,9 +220,13 @@ const Navigation = ({ activeSection, setActiveSection }: NavigationProps) => {
                   <Link
                     key={item}
                     to={item === 'Neighbourhood News' ? '/neighbourhood-news' : item === 'Inner Circle' ? '/inner-circle' : '#'}
-                    onClick={() => {
-                      if (item !== 'Neighbourhood News' && item !== 'Inner Circle') {
-                        handleNavClick(item.toLowerCase().replace(' ', ''));
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleNavClick(item.toLowerCase().replace(' ', ''));
+                      if (item === 'Neighbourhood News') {
+                        navigate('/neighbourhood-news');
+                      } else if (item === 'Inner Circle') {
+                        navigate('/inner-circle');
                       }
                     }}
                     className={`text-sm font-medium transition-colors hover:text-gray-600 ${

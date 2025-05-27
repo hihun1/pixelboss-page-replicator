@@ -31,58 +31,59 @@ const Members = () => {
 
       <main className="flex-grow">
         <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4">
-          <div className="rounded-lg border bg-card text-card-foreground w-full max-w-md shadow-lg">
-            <div className="flex flex-col space-y-1.5 p-6 text-center">
-              <h3 className="tracking-tight text-3xl font-bold">Welcome Back</h3>
-              <p className="text-sm text-muted-foreground">Sign in to access exclusive campaign features</p>
+          <div className="bg-white rounded-lg w-full max-w-md p-8">
+            <div className="text-center mb-6">
+              <h3 className="text-2xl font-bold mb-2">Welcome Back</h3>
+              <p className="text-sm text-gray-600">Sign in to access exclusive campaign features</p>
             </div>
-            <form onSubmit={handleSubmit}>
-              <div className="p-6 pt-0 space-y-4">
-                <div className="space-y-2">
-                  <label className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" htmlFor="email">Email</label>
-                  <input 
-                    type="email" 
-                    className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm" 
-                    id="email" 
-                    placeholder="Enter your email" 
-                    required 
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
-                </div>
-                <div className="space-y-2">
-                  <div className="flex items-center justify-between">
-                    <label className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" htmlFor="password">Password</label>
-                    <a href="#" className="text-sm text-black hover:text-gray-600 transition-colors">Forgot password?</a>
-                  </div>
-                  <input 
-                    type="password" 
-                    className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm" 
-                    id="password" 
-                    placeholder="Enter your password" 
-                    required 
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                  />
-                </div>
-                <div className="text-sm text-gray-500">
-                  <p>For demo purposes, use:</p>
-                  <p>Email: jane@example.com</p>
-                  <p>Password: password</p>
-                </div>
+            
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div className="space-y-2">
+                <label className="text-sm font-medium" htmlFor="email">Email</label>
+                <input 
+                  type="email" 
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-black/5" 
+                  id="email" 
+                  placeholder="Enter your email" 
+                  required 
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
               </div>
-              <div className="items-center p-6 pt-0 flex flex-col">
-                <button 
-                  type="submit"
-                  disabled={isLoading}
-                  className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 text-white h-10 px-4 py-2 w-full bg-black hover:bg-gray-900" 
-                >
-                  {isLoading ? 'Signing in...' : 'Sign In'}
-                </button>
-                <p className="mt-4 text-sm text-center text-gray-600">
-                  Don't have an account? <a href="#" className="text-brandhub-navy hover:text-brandhub-gold transition-colors font-medium">Sign up</a>
-                </p>
+
+              <div className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <label className="text-sm font-medium" htmlFor="password">Password</label>
+                  <a href="#" className="text-sm text-black hover:text-gray-600">Forgot password?</a>
+                </div>
+                <input 
+                  type="password" 
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-black/5" 
+                  id="password" 
+                  placeholder="Enter your password" 
+                  required 
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
               </div>
+
+              <div className="text-sm text-gray-500 space-y-1">
+                <p>For demo purposes, use:</p>
+                <p>Email: jane@example.com</p>
+                <p>Password: password</p>
+              </div>
+
+              <button 
+                type="submit"
+                disabled={isLoading}
+                className="w-full bg-black text-white py-2.5 rounded-md hover:bg-gray-800 transition-colors font-medium text-sm focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2 disabled:opacity-50"
+              >
+                {isLoading ? 'Signing in...' : 'Sign in'}
+              </button>
+
+              <p className="text-center text-sm text-gray-600">
+                Don't have an account? <a href="#" className="text-black hover:text-gray-600 font-medium">Sign up</a>
+              </p>
             </form>
           </div>
         </div>

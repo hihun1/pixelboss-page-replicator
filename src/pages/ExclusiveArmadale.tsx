@@ -1,5 +1,7 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import Navigation from '../components/shop/Navigation';
+import Footer from '../components/shop/Footer';
 
 interface Product {
   id: number;
@@ -46,7 +48,7 @@ const products: Product[] = [
     image: "https://wp.hmm.pixelboss.io/wp-content/uploads/2025/04/rinacuccina.jpg",
     category: "FOOD & DRINK",
     business: "RINA'S CUCINA",
-    slug: "rina-s-cucina-4"
+    slug: "rinas-cucina-4"
   },
   {
     id: 5,
@@ -160,85 +162,130 @@ const products: Product[] = [
 
 const ExclusiveArmadale = () => {
   const [currentCategory, setCurrentCategory] = useState('VIEW ALL');
+  const [activeSection, setActiveSection] = useState('exclusivearmadale');
   const categories = ['VIEW ALL', 'BRIDAL', 'FASHION', 'FOOD & DRINK', 'BEAUTY', 'SERVICES'];
+  const location = useLocation();
+
+  useEffect(() => {
+    // Handle hash changes
+    const hash = location.hash.slice(1).toUpperCase();
+    if (hash) {
+      const category = categories.find(cat => 
+        cat.toLowerCase().replace(/[& ]/g, '') === hash.toLowerCase()
+      );
+      if (category) {
+        setCurrentCategory(category);
+        // Scroll to category section after a short delay
+        setTimeout(() => {
+          const element = document.getElementById(hash.toLowerCase());
+          if (element) {
+            element.scrollIntoView({ behavior: 'smooth' });
+          }
+        }, 100);
+      }
+    }
+  }, [location.hash, categories]);
 
   const filteredProducts = products.filter(product => 
     currentCategory === 'VIEW ALL' ? true : product.category === currentCategory
   );
 
+  const handleCategoryClick = (category: string) => {
+    setCurrentCategory(category);
+    // Update URL hash without the '&' symbol and spaces
+    const hash = category === 'VIEW ALL' ? '' : category.toLowerCase().replace(/[& ]/g, '');
+    window.history.pushState(null, '', hash ? `#${hash}` : window.location.pathname);
+    
+    // Scroll to category section
+    if (hash) {
+      const element = document.getElementById(hash);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  };
+
   return (
-    <section className="py-16 bg-white">
-      <div className="container mx-auto px-4 lg:px-8 max-w-[1400px]">
-        {/* Header with orange bar */}
-        <div className="flex mb-8">
-          <div className="w-1.5 bg-[#FF6B00] mr-4"></div>
-          <div>
-            <h1 className="text-3xl md:text-4xl font-bold text-[#080d1e]">EXCLUSIVE ARMADALE</h1>
-            <p className="text-gray-600 mt-2">Exclusive offers from High Street</p>
-          </div>
-        </div>
+    <>
+      {/* Top notification bar */}
+      <div className="bg-black text-white text-center py-3 w-full font-medium text-sm">
+        This is a demo for Foodservice Australia event - not a live environment. Launching July 2025.
+      </div>
 
-        {/* Category filters */}
-        <div className="flex flex-nowrap overflow-x-auto gap-2 mb-12 justify-center">
-          <button
-            onClick={() => setCurrentCategory('VIEW ALL')}
-            className={`whitespace-nowrap px-8 py-2 border transition-colors ${
-              currentCategory === 'VIEW ALL'
-                ? 'bg-[#080d1e] text-white border-[#080d1e]'
-                : 'border-gray-300 text-gray-700 hover:border-gray-400'
-            }`}
-          >
-            VIEW ALL
-          </button>
-          {categories.filter(cat => cat !== 'VIEW ALL').map((category) => (
-            <button
-              key={category}
-              onClick={() => setCurrentCategory(category)}
-              className={`whitespace-nowrap px-8 py-2 border transition-colors ${
-                currentCategory === category
-                  ? 'bg-[#080d1e] text-white border-[#080d1e]'
-                  : 'border-gray-300 text-gray-700 hover:border-gray-400'
-              }`}
-            >
-              {category}
-            </button>
-          ))}
-        </div>
-
-        {/* Products Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
-          {filteredProducts.map((product) => (
-            <div key={product.id} className="flex flex-col h-full group">
-              <div className="flex w-full">
-                <div className="w-[15px] bg-orange-500"></div>
-                <div className="bg-[#080d1e] text-white px-3 py-2 flex-1">
-                  <span className="text-sm uppercase font-medium">{product.business}</span>
-                </div>
-              </div>
-              <div className="relative overflow-hidden">
-                <Link to={`/campaigns/${product.slug}`}>
-                  <img
-                    src={product.image}
-                    alt={product.name}
-                    className="w-full h-[222px] object-cover transition-transform duration-500 group-hover:scale-105 cursor-pointer"
-                  />
-                </Link>
-              </div>
-              <div className="pt-4 pb-4 flex flex-col items-start h-[120px] justify-between">
-                <h3 className="text-base font-medium leading-tight mb-2 line-clamp-2 h-[40px]">
-                  {product.name}
-                </h3>
-                <Link to={`/campaigns/${product.slug}`}>
-                  <button className="border border-gray-300 px-8 py-2 text-xs uppercase hover:bg-[#080d1e] hover:text-white hover:border-[#080d1e] rounded-full transition-colors duration-300 cursor-pointer">
-                    ENTER
-                  </button>
-                </Link>
+      <div className="min-h-screen bg-white relative">
+        <Navigation activeSection={activeSection} setActiveSection={setActiveSection} />
+        
+        <section className="py-16 bg-white">
+          <div className="container mx-auto px-4 lg:px-8 max-w-[1400px]">
+            {/* Header with orange bar */}
+            <div className="flex mb-8">
+              <div className="w-1.5 bg-[#FF6B00] mr-4"></div>
+              <div>
+                <h1 className="text-3xl md:text-4xl font-bold text-[#080d1e]">EXCLUSIVE ARMADALE</h1>
+                <p className="text-gray-600 mt-2">Exclusive offers from High Street</p>
               </div>
             </div>
-          ))}
-        </div>
+
+            {/* Category filters */}
+            <div className="flex flex-nowrap overflow-x-auto gap-2 mb-12 justify-center">
+              {categories.map((category) => (
+                <button
+                  key={category}
+                  id={category.toLowerCase().replace(/[& ]/g, '')}
+                  onClick={() => handleCategoryClick(category)}
+                  className={`whitespace-nowrap px-8 py-2 border transition-all duration-150 active:scale-95 ${
+                    currentCategory === category
+                      ? 'bg-[#080d1e] text-white border-[#080d1e]'
+                      : 'border-gray-300 text-gray-700 hover:border-gray-400 hover:bg-gray-50'
+                  }`}
+                >
+                  {category}
+                </button>
+              ))}
+            </div>
+
+            {/* Products Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
+              {filteredProducts.map((product) => (
+                <div key={product.id} className="flex flex-col h-full group">
+                  <div className="flex w-full">
+                    <div className="w-[15px] bg-orange-500"></div>
+                    <div className="bg-[#080d1e] text-white px-3 py-2 flex-1">
+                      <span className="text-sm uppercase font-medium">{product.business}</span>
+                    </div>
+                  </div>
+                  <div className="relative overflow-hidden">
+                    <Link 
+                      to={`/campaigns/${product.slug}`}
+                    >
+                      <img
+                        src={product.image}
+                        alt={product.name}
+                        className="w-full h-[222px] object-cover transition-transform duration-500 group-hover:scale-105 cursor-pointer"
+                      />
+                    </Link>
+                  </div>
+                  <div className="pt-4 pb-4 flex flex-col items-start h-[120px] justify-between">
+                    <h3 className="text-base font-medium leading-tight mb-2 line-clamp-2 h-[40px]">
+                      {product.name}
+                    </h3>
+                    <Link 
+                      to={`/campaigns/${product.slug}`}
+                    >
+                      <button className="border border-gray-300 px-8 py-2 text-xs uppercase hover:bg-[#080d1e] hover:text-white hover:border-[#080d1e] rounded-full transition-all duration-150 active:scale-95 cursor-pointer">
+                        ENTER
+                      </button>
+                    </Link>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <Footer />
       </div>
-    </section>
+    </>
   );
 };
 

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import Navigation from '../components/shop/Navigation';
 import Footer from '../components/shop/Footer';
 
@@ -28,11 +29,11 @@ const InnerCircle = () => {
             <div className="bg-gray-50 rounded-lg p-8 text-center my-8">
               <h2 className="text-2xl font-bold mb-4">Members Only Area</h2>
               <p className="mb-8 text-gray-600">Log in to access exclusive Inner Circle offers from your favorite Armadale brands.</p>
-              <a href="/login">
-                <button className="inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 h-10 bg-[#080d1e] text-white uppercase hover:bg-[#080d1e]/90 rounded-none px-8 py-2">
+              <Link to="/members">
+                <button className="inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 h-10 bg-[#080d1e] text-white uppercase hover:bg-[#080d1e]/90 active:scale-95 rounded-none px-8 py-2">
                   LOG IN
                 </button>
-              </a>
+              </Link>
             </div>
           </div>
         </div>
