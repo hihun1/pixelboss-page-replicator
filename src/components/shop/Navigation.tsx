@@ -57,18 +57,15 @@ const Navigation = ({ activeSection, setActiveSection }: NavigationProps) => {
   const handleDropdownItemClick = (item: string, e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    const category = item.toLowerCase().replace(/[& ]/g, '');
+    
     setIsDropdownOpen(false);
     setActiveSection('exclusivearmadale');
-    navigate('/exclusive-armadale');
-    setTimeout(() => {
-      const element = document.getElementById(category);
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
-      }
-      // Update URL with hash after navigation
-      window.history.pushState(null, '', `/exclusive-armadale#${category}`);
-    }, 100);
+    
+    // Create hash from category name
+    const hash = item.toLowerCase().replace(/[& ]/g, '');
+    
+    // Navigate with hash
+    navigate(`/exclusive-armadale#${hash}`);
   };
 
   const navItems = ['3143', 'Inner Circle', 'Exclusive Armadale', 'Neighbourhood News', 'Members'];

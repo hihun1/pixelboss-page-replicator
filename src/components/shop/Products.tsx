@@ -187,7 +187,7 @@ const Products = () => {
           <h2 className="text-2xl font-bold uppercase">
             EXCLUSIVE ARMADALE
           </h2>
-          <Link to="/campaigns" className="text-sm uppercase">
+          <Link to="/exclusive-armadale" className="text-sm uppercase">
             VIEW ALL
           </Link>
         </div>
@@ -198,10 +198,11 @@ const Products = () => {
               <button
                 key={category}
                 onClick={() => setCurrentCategory(category)}
-                className={`border px-6 py-2 text-sm uppercase transition-colors duration-300 whitespace-nowrap
-                ${currentCategory === category 
-                  ? 'bg-[#080d1e] text-white border-[#080d1e]'
-                  : 'border-gray-300 hover:bg-[#080d1e] hover:text-white hover:border-[#080d1e]'}`}
+                className={`whitespace-nowrap px-8 py-2 border transition-all duration-150 active:scale-95 ${
+                  currentCategory === category
+                    ? 'bg-[#080d1e] text-white border-[#080d1e]'
+                    : 'border-gray-300 text-gray-700 hover:border-gray-400'
+                }`}
               >
                 {category}
               </button>
@@ -209,7 +210,7 @@ const Products = () => {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-[45px]">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
           {filteredProducts.map((product) => (
             <div key={product.id} className="flex flex-col h-full group">
               <div className="flex w-full">
@@ -219,27 +220,11 @@ const Products = () => {
                 </div>
               </div>
               <div className="relative overflow-hidden">
-                <Link to={`/campaigns/${product.id === 1 ? 'victor-churchill-1' : 
-                  product.id === 2 ? 'scanlan-theodore-2' : 
-                  product.id === 3 ? 'skin-angel-3' : 
-                  product.id === 4 ? 'rinas-cucina-4' : 
-                  product.id === 5 ? 'et-al-5' : 
-                  product.id === 6 ? 'james-said-6' : 
-                  product.id === 7 ? 'riva-bridal-7' : 
-                  product.id === 8 ? 'bernadette-pimenta-8' : 
-                  product.id === 9 ? 'raffaele-ciuca-9' : 
-                  product.id === 10 ? 'paragon-studio-10' : 
-                  product.id === 11 ? 'facial-healing-co-11' : 
-                  product.id === 12 ? 'venroy-12' : 
-                  product.id === 13 ? 'amaru-13' : 
-                  product.id === 14 ? 'dotf-14' : 
-                  product.id === 15 ? 'eye-st-15' : 
-                  product.id === 16 ? 'window-workshop-16' : 
-                  `product-${product.id}`}`}>
+                <Link to={`/campaigns/product-${product.id}`}>
                   <img
                     src={product.image}
                     alt={product.name}
-                    className="w-full h-[222px] object-cover transition-transform duration-500 group-hover:scale-105 cursor-pointer"
+                    className="w-full h-[222px] object-cover transition-transform duration-500 group-hover:scale-105"
                   />
                 </Link>
               </div>
@@ -247,24 +232,8 @@ const Products = () => {
                 <h3 className="text-base font-medium leading-tight mb-2 line-clamp-2 h-[40px]">
                   {product.name}
                 </h3>
-                <Link to={`/campaigns/${product.id === 1 ? 'victor-churchill-1' : 
-                  product.id === 2 ? 'scanlan-theodore-2' : 
-                  product.id === 3 ? 'skin-angel-3' : 
-                  product.id === 4 ? 'rinas-cucina-4' : 
-                  product.id === 5 ? 'et-al-5' : 
-                  product.id === 6 ? 'james-said-6' : 
-                  product.id === 7 ? 'riva-bridal-7' : 
-                  product.id === 8 ? 'bernadette-pimenta-8' : 
-                  product.id === 9 ? 'raffaele-ciuca-9' : 
-                  product.id === 10 ? 'paragon-studio-10' : 
-                  product.id === 11 ? 'facial-healing-co-11' : 
-                  product.id === 12 ? 'venroy-12' : 
-                  product.id === 13 ? 'amaru-13' : 
-                  product.id === 14 ? 'dotf-14' : 
-                  product.id === 15 ? 'eye-st-15' : 
-                  product.id === 16 ? 'window-workshop-16' : 
-                  `product-${product.id}`}`}>
-                  <button className="border border-gray-300 px-8 py-2 text-xs uppercase hover:bg-[#080d1e] hover:text-white hover:border-[#080d1e] rounded-full transition-colors duration-300 cursor-pointer">
+                <Link to={`/campaigns/product-${product.id}`}>
+                  <button className="border border-gray-300 px-8 py-2 text-xs uppercase hover:bg-[#080d1e] hover:text-white hover:border-[#080d1e] rounded-full transition-all duration-150 active:scale-95">
                     ENTER
                   </button>
                 </Link>
@@ -274,51 +243,42 @@ const Products = () => {
         </div>
 
         {/* News Section */}
-        <div className="flex justify-between items-center border-b border-gray-300 pb-2 mb-8">
-          <h2 className="text-2xl font-bold uppercase">
-            Neighbourhood News
-          </h2>
-          <Link to="/stories" className="text-sm uppercase">
-            VIEW ALL
-          </Link>
-        </div>
+        <div className="container mx-auto px-4 pt-0 pb-16">
+          <div className="flex justify-between items-center border-b border-gray-300 pb-2 mb-8">
+            <h2 className="text-2xl font-bold uppercase">
+              NEIGHBOURHOOD NEWS
+            </h2>
+            <Link to="/neighbourhood-news" className="text-sm uppercase hover:text-gray-600">
+              VIEW ALL
+            </Link>
+          </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-[45px]">
-          {newsItems.map((item) => (
-            <div key={item.id} className="flex flex-col h-full group">
-              <div className="flex w-full">
-                <div className="w-[15px] bg-[rgb(185,255,108)]"></div>
-                <div className="bg-[#080d1e] text-white px-3 py-2 flex-1">
-                  <span className="text-sm uppercase font-bold">{item.business}</span>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {newsItems.map((item) => (
+              <div key={item.id} className="flex flex-col h-full group cursor-pointer">
+                <div className="flex w-full">
+                  <div className="w-[15px] bg-[rgb(185,255,108)]"></div>
+                  <div className="bg-[#080d1e] text-white px-3 py-2 flex-1">
+                    <span className="text-sm uppercase font-bold">{item.business}</span>
+                  </div>
                 </div>
-              </div>
-              <div className="relative overflow-hidden">
-                <Link to={item.id === 1 ? '/campaigns/new-1' : 
-                        item.id === 2 ? '/campaigns/new-2' : 
-                        item.id === 3 ? '/campaigns/new-3' : 
-                        `/stories/story-${item.id}`}>
-                  <img
-                    src={item.image}
-                    alt={item.title}
-                    className="w-full h-[222px] object-cover transition-transform duration-500 group-hover:scale-105 cursor-pointer"
-                  />
+                <Link to={`/campaigns/new-${item.id}`}>
+                  <div className="relative overflow-hidden">
+                    <img
+                      src={item.image}
+                      alt={item.title}
+                      className="w-full h-[222px] object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                  </div>
+                  <div className="py-4 h-[80px] flex flex-col justify-start">
+                    <h3 className="text-base font-medium leading-tight line-clamp-2 group-hover:underline">
+                      {item.title}
+                    </h3>
+                  </div>
                 </Link>
               </div>
-              <div className="py-4 h-[120px] flex flex-col justify-between">
-                <h3 className="text-base font-medium leading-tight self-start line-clamp-2 h-[40px]">
-                  {item.title}
-                </h3>
-                <Link to={item.id === 1 ? '/campaigns/new-1' : 
-                        item.id === 2 ? '/campaigns/new-2' : 
-                        item.id === 3 ? '/campaigns/new-3' : 
-                        `/stories/story-${item.id}`}>
-                  <button className="border border-gray-300 px-8 py-2 text-xs uppercase hover:bg-[#080d1e] hover:text-white hover:border-[#080d1e] rounded-full transition-colors duration-300 cursor-pointer">
-                    READ MORE
-                  </button>
-                </Link>
-              </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </>

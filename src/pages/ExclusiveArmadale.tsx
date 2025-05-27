@@ -166,44 +166,55 @@ const ExclusiveArmadale = () => {
   const categories = ['VIEW ALL', 'BRIDAL', 'FASHION', 'FOOD & DRINK', 'BEAUTY', 'SERVICES'];
   const location = useLocation();
 
+  const scrollToCategory = (categoryId: string) => {
+    setTimeout(() => {
+      const element = document.getElementById(categoryId);
+      if (element) {
+        const header = document.querySelector('nav') as HTMLElement;
+        const notificationBar = document.querySelector('.bg-black') as HTMLElement;
+        const offset = (header?.offsetHeight || 0) + (notificationBar?.offsetHeight || 0) + 20;
+        
+        const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+        window.scrollTo({
+          top: elementPosition - offset,
+          behavior: 'smooth'
+        });
+      }
+    }, 100);
+  };
+
   useEffect(() => {
-    // Handle hash changes
     const hash = location.hash.slice(1).toUpperCase();
     if (hash) {
-      const category = categories.find(cat => 
+      const matchedCategory = categories.find(cat => 
         cat.toLowerCase().replace(/[& ]/g, '') === hash.toLowerCase()
       );
-      if (category) {
-        setCurrentCategory(category);
-        // Scroll to category section after a short delay
-        setTimeout(() => {
-          const element = document.getElementById(hash.toLowerCase());
-          if (element) {
-            element.scrollIntoView({ behavior: 'smooth' });
-          }
-        }, 100);
+      
+      if (matchedCategory) {
+        setCurrentCategory(matchedCategory);
+        scrollToCategory(hash.toLowerCase());
       }
+    } else {
+      setCurrentCategory('VIEW ALL');
     }
   }, [location.hash, categories]);
+
+  const handleCategoryClick = (category: string) => {
+    const hash = category === 'VIEW ALL' ? '' : category.toLowerCase().replace(/[& ]/g, '');
+    setCurrentCategory(category);
+    
+    if (hash) {
+      window.location.hash = hash;
+      scrollToCategory(hash);
+    } else {
+      window.location.hash = '';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
 
   const filteredProducts = products.filter(product => 
     currentCategory === 'VIEW ALL' ? true : product.category === currentCategory
   );
-
-  const handleCategoryClick = (category: string) => {
-    setCurrentCategory(category);
-    // Update URL hash without the '&' symbol and spaces
-    const hash = category === 'VIEW ALL' ? '' : category.toLowerCase().replace(/[& ]/g, '');
-    window.history.pushState(null, '', hash ? `#${hash}` : window.location.pathname);
-    
-    // Scroll to category section
-    if (hash) {
-      const element = document.getElementById(hash);
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
-      }
-    }
-  };
 
   return (
     <>
