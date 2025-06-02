@@ -2,25 +2,27 @@ name: Run Cypress Tests
 
 on:
   push:
-    branches: [main]     # Tự động chạy khi có push lên nhánh main
+    branches:
+      - main       # Trigger khi có push lên nhánh main
   pull_request:
-    branches: [main]     # Hoặc khi có pull request đến nhánh main
+    branches:
+      - main       # Trigger khi có pull request vào nhánh main
 
 jobs:
   cypress-run:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest   # Sử dụng môi trường Ubuntu
 
     steps:
-      - name: Lấy mã nguồn từ GitHub
+      - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Cài Node.js
+      - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '18'
 
-      - name: Cài đặt thư viện npm
+      - name: Install dependencies
         run: npm install
 
-      - name: Chạy Cypress test
+      - name: Run Cypress tests
         run: npx cypress run
